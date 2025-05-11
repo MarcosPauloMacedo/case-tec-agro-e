@@ -82,7 +82,7 @@ export function LayoutAdmin({ children }: LayoutAdminProps) {
 
         {/* Content */}
         <main className="flex flex-col items-center p-4 lg:ml-64">
-          <div className="container bg-red-400">{children}</div>
+          <div className="container px-3">{children}</div>
         </main>
       </div>
     </div>
