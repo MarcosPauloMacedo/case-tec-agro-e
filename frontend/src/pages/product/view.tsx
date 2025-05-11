@@ -1,8 +1,7 @@
-export function ProductView() {
+import { ProductView } from "../../components/view/product";
+
+export function ProductViewPage() {
     return (
-        <div>
-            <h1>Product View</h1>
-            <p>This is the product view page.</p>
-        </div>
+        <ProductView />
     )
 }
