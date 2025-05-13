@@ -1,7 +1,11 @@
 import { CircleX } from "lucide-react";
 
-export function DeleteAction() {
+interface IDeleteActionProps {
+    onClick: () => void;
+}
+
+export function DeleteAction({ onClick }: IDeleteActionProps) {
     return (
-        <CircleX className="w-4 h-4 text-red-500 cursor-pointer" />
+        <CircleX onClick={onClick} className="w-4 h-4 text-red-500 cursor-pointer" />
     )
 }
