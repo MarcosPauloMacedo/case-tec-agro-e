@@ -1,6 +1,7 @@
-import { PanelRightOpen } from "lucide-react";
+import { LogOut, PanelRightOpen } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { removeToken } from "../services/token";
 
 interface LayoutAdminProps {
   children: React.ReactNode;
@@ -8,6 +9,13 @@ interface LayoutAdminProps {
 
 export function LayoutAdmin({ children }: LayoutAdminProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const logout = () => {
+    removeToken();
+    navigate("/");
+  };
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -42,16 +50,14 @@ export function LayoutAdmin({ children }: LayoutAdminProps) {
                 Produtos
               </Link>
             </li>
-            <li>
-              <Link
-                to="/admin/settings"
-                className="block px-4 py-2 rounded hover:bg-gray-700"
-              >
-                Logout
-              </Link>
-            </li>
           </ul>
         </nav>
+        <div className="fixed bottom-0 w-full p-4 flex justify-start">
+          <button onClick={logout} className="flex items-center gap-3">
+            <span>Sair</span>
+            <LogOut className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
       {/* Main Content */}
