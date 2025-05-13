@@ -68,6 +68,10 @@ Acesse:
 - Front-end: http://localhost:3000
 - Back-end (API): http://localhost:8000/api/products
 
+Usuário de Desenvolvimento:
+- usuario: admin
+- senha: admin123
+
 ---
 
 ## 🧪 Rodar Testes

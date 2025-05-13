@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Instala dependências
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia o código do backend
+COPY . .
+
+# Expõe a porta do Django
+EXPOSE 8000
+
+# Comando padrão
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
