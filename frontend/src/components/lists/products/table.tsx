@@ -28,7 +28,7 @@ export function TableProducts({ products, render }: ITableProductsProps) {
           <TableRow key={product.id}>
             <TableCell>{index + 1}</TableCell>
             <TableCell>{product.name}</TableCell>
-            <TableCell>R$ {product.price.toFixed(2)}</TableCell>
+            <TableCell>R$ {product.price}</TableCell>
             {render && <TableCell>{render(product)}</TableCell>}
           </TableRow>
         ))}
