@@ -4,10 +4,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
 import {
-  createProduct,
   getProductById,
-  updateProduct,
+  updateProduct
 } from "../../../api/products";
+import { useAppDispatch } from "../../../provider/product/product-hook";
+import { addProduct } from "../../../provider/product/products-slice";
 import { delay } from "../../../services/delay";
 import { BoxDialogs } from "../../utils/box-dialogs";
 import { ButtonBack } from "../../utils/buttons/back";
@@ -16,9 +17,9 @@ import { ErrorForm } from "../../utils/items-form/error";
 import { Form } from "../../utils/items-form/form";
 import { Input } from "../../utils/items-form/input";
 import { Label } from "../../utils/items-form/label";
+import { LoadingCircle } from "../../utils/loading/circle";
 import { TitlePage } from "../../utils/title-page";
 import { dataProductForm as data } from "./data";
-import { LoadingCircle } from "../../utils/loading/circle";
 
 const productSchema = z.object({
   name: z
@@ -42,6 +43,7 @@ export function ProductForm() {
     "success" | "error" | "loading"
   >("loading");
 
+  const dispatch = useAppDispatch();
   const [isEdit, setIsEdit] = useState(false);
   const [openDialog, setOpenDialog] = useState(true);
   const [product, setProduct] = useState<Zod.infer<typeof productSchema>>();
@@ -58,7 +60,7 @@ export function ProductForm() {
 
   const fetchProduct = async (id: number) => {
     await delay(1000);
-    await getProductById(id)
+    getProductById(id)
       .then((response) => {
         const { name, price } = response;
         form.setValue("name", name);
@@ -72,7 +74,7 @@ export function ProductForm() {
   };
 
   const create = async (data: z.infer<typeof productSchema>) => {
-    await createProduct(data)
+    dispatch(addProduct(data))
       .then(() => {
         setVariantDialog("success");
         if (!openDialog) setOpenDialog(true);
@@ -85,7 +87,7 @@ export function ProductForm() {
   };
 
   const update = async (id: number, data: z.infer<typeof productSchema>) => {
-    await updateProduct(id, data)
+    updateProduct(id, data)
       .then(() => {
         if (!openDialog) setOpenDialog(true);
         setVariantDialog("success");
