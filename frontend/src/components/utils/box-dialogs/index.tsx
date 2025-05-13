@@ -67,7 +67,7 @@ export function BoxDialogs({
           </DialogTitle>
         </DialogHeader>
         {description && (
-          <DialogDescription className="flex justify-center text-center text-gray-500">
+          <DialogDescription className="text-lg flex justify-center text-center text-gray-500">
             {description}
           </DialogDescription>
         )}

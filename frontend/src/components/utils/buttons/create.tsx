@@ -12,7 +12,7 @@ export function ButtonCreate({ to }: IButtonCreateProps) {
 
     return (
         <div className="flex justify-end py-4">
-            <button onClick={handleClick} className="bg-blue-500 text-white px-4 py-2 rounded">
+            <button onClick={handleClick} className="!bg-orange-500 text-white px-4 py-2 rounded">
                 Cadastrar
             </button>
         </div>
