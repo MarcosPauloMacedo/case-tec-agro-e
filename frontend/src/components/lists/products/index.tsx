@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FixedSizeList as List } from "react-window";
-import { useAppDispatch, useAppSelector } from "../../../provider/product/product-hook";
-import { fetchProducts, removeProduct } from "../../../provider/product/products-slice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../provider/product/product-hook";
+import {
+  fetchProducts,
+  removeProduct,
+} from "../../../provider/product/products-slice";
 import { delay } from "../../../services/delay";
 import { DeleteAction } from "../../actions/delete";
 import { EditAction } from "../../actions/edit";
@@ -13,6 +19,7 @@ import { ButtonCreate } from "../../utils/buttons/create";
 import { LoadingCircle } from "../../utils/loading/circle";
 import { TitlePage } from "../../utils/title-page";
 import { dataProductList as data } from "./data";
+import { cn } from "../../../lib/cn";
 
 export function ProductList() {
   const location = useLocation();
@@ -69,9 +76,9 @@ export function ProductList() {
   };
 
   useEffect(() => {
-    dispatch(fetchProducts())
+    dispatch(fetchProducts());
   }, []);
-
+  
   const Row = ({
     index,
     style,
@@ -81,14 +88,12 @@ export function ProductList() {
   }) => {
     const product = products[index];
     return (
-      <div
-        style={style}
-        className="flex justify-between items-center"
-      >
-        <span className="text-black">
-          {product.name} - R$ {product.price}
-        </span>
-        <div className="flex gap-4">
+      <div style={style} className="grid grid-cols-4 mt-4">
+        <div className={cn("text-black col-span-2 flex justify-between items-center p-1 rounded-l-lg overflow-x-auto", index % 2 === 0 ? "bg-gray-200" : "")}>
+          <span className="whitespace-nowrap me-2">{product.name}</span>
+          <span className="whitespace-nowrap">R$ {product.price}</span>
+        </div>
+        <div className={cn("flex justify-end items-center gap-4 pe-3 col-span-2 rounded-e-lg me-2", index % 2 === 0 ? "bg-gray-200" : "")}>
           <ViewAction to={`${location.pathname}/${product.id}`} />
           <EditAction to={`${location.pathname}/form/${product.id}`} />
           <DeleteAction onClick={() => getProductId(product.id)} />
@@ -112,7 +117,7 @@ export function ProductList() {
           <BoxDialogs
             title="Erro ao buscar produtos"
             description="Ocorreu um erro ao buscar os produtos. Tente novamente mais tarde."
-            open={openDialog}
+            open={true}
             setOpen={() => navigate("/admin/dashboard")}
             variant="error"
           />
@@ -123,14 +128,23 @@ export function ProductList() {
           </div>
         )}
         {status === "succeeded" && products.length && (
-          <List
-            height={350}
-            itemCount={products.length}
-            itemSize={50}
-            width="auto"
-          >
-            {Row}
-          </List>
+          <div>
+            <section className="w-1/2">
+              <div className="text-black col-span-2 flex justify-between">
+                <span className="text-md font-semibold">Nome</span>
+                <span className="text-md font-semibold">Preço</span>
+              </div>
+            </section>
+            <List
+              className="p-4"
+              height={350}
+              itemCount={products.length}
+              itemSize={50}
+              width="auto"
+            >
+              {Row}
+            </List>
+          </div>
         )}
       </div>
       <BoxDialogs
@@ -143,7 +157,7 @@ export function ProductList() {
         {typeBoxDialog === "question" && (
           <div className="flex justify-center">
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded w-1/2"
+              className="text-white px-4 py-2 rounded w-1/2"
               onClick={handleDeleteProduct}
             >
               Apagar
