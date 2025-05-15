@@ -1,18 +1,19 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { login } from "../../api/auth/login";
-import { ButtonSubmit } from "../utils/buttons/submit";
-import { ErrorForm } from "../utils/items-form/error";
-import { Form } from "../utils/items-form/form";
-import { Input } from "../utils/items-form/input";
-import { Label } from "../utils/items-form/label";
+import { login } from "../../../api/auth/login";
+import { ButtonSubmit } from "../../utils/buttons/submit";
+import { ErrorForm } from "../../utils/items-form/error";
+import { Form } from "../../utils/items-form/form";
+import { Input } from "../../utils/items-form/input";
+import { Label } from "../../utils/items-form/label";
 import { useNavigate } from "react-router-dom";
-import { setToken } from "../../services/token";
-import { delay } from "../../services/delay";
-import { BoxDialogs } from "../utils/box-dialogs";
+import { setToken } from "../../../services/token";
+import { delay } from "../../../services/delay";
+import { BoxDialogs } from "../../utils/box-dialogs";
 import { useState } from "react";
-import imgLogin from "../../assets/login-img.jpg";
+import imgLogin from "../../../assets/login-img.jpg";
+import logo from "../../../assets/Logomarca.png"
 
 const loginSchema = z.object({
   username: z
@@ -55,11 +56,16 @@ export function Login() {
     <div className="flex items-center justify-center min-h-screen min-w-screen bg-gray-100">
       <div className="flex m-10">
         <div className="hidden md:flex flex-col w-1/2 p-10 bg-white rounded-bl-2xl rounded-tl-2xl">
-          <img src={imgLogin} alt="Logo" className="w-xl" />
+          <img src={imgLogin} alt="login" className="w-xl" />
         </div>
         <div className="flex flex-col w-full md:w-1/2 p-10 bg-yellow-300 md:rounded-br-2xl md:rounded-tr-2xl rounded-2xl md:rounded-none">
-          <h2 className="text-4xl text-center text-slate-700 font-semibold">Bem Vindo!</h2>
-          <Form className="bg-yellow-300 border-0" onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="flex items-center justify-center">
+            <img src={logo} alt="logo" className="w-64" />
+          </div>
+          <Form
+            className="bg-yellow-300 border-0"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
             {/* username */}
             <div>
               <Label htmlFor="username" text="Usuário" required />
