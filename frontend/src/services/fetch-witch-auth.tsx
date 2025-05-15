@@ -19,24 +19,17 @@ export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
   if (response.status === 401) {
     const refreshToken = getRefreshToken();
     if (refreshToken) {
-      refreshAccessToken(refreshToken)
-        .then((data) => {
+      return await refreshAccessToken(refreshToken)
+        .then(async (data) => {
           setAccessToken(data.access);
           // Tenta novamente a requisição com o novo token
-          return fetch(url, {
+          return await fetch(url, {
             ...options,
             headers: {
               ...headers,
               Authorization: `Bearer ${data.access}`,
             },
           });
-        })
-        .then((newResponse) => {
-          if (!newResponse.ok) {
-            window.location.href = "/login";
-            throw new Error("Erro ao buscar dados com o novo token.");
-          }
-          return newResponse;
         })
         .catch((error) => {
           console.error("Erro ao atualizar o token:", error);
