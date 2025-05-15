@@ -20,6 +20,7 @@ import { Label } from "../../utils/items-form/label";
 import { LoadingCircle } from "../../utils/loading/circle";
 import { TitlePage } from "../../utils/title-page";
 import { dataProductForm as data } from "./data";
+import { AlertInfo } from "../../utils/alerts/info";
 
 const productSchema = z.object({
   name: z
@@ -150,10 +151,11 @@ export function ProductForm() {
   }, [id]);
 
   return (
-    <div className="p-4">
+    <div className="mb-8">
       {(id && <TitlePage title="Editar Produto" />) || (
         <TitlePage title="Criar Produto" />
       )}
+      <AlertInfo message={isEdit ? "Atualize as informações do produto abaixo": "Cadastre as informações do produto abaixo"} />
       <ButtonBack />
       {statusComponent === "loading" && (
         <div className="flex justify-center">{<LoadingCircle />}</div>
@@ -169,24 +171,26 @@ export function ProductForm() {
       )}
       {statusComponent === "success" && (
         <Form onSubmit={form.handleSubmit(onSubmit)}>
-          {/* Nome */}
-          <div>
-            <Label htmlFor="name" text="Nome" required />
-            <Input type="text" id="name" {...form.register("name")} />
-            <ErrorForm error={form.formState.errors.name} />
-          </div>
+          <div className="grid grid-cols-3 gap-4">
+            {/* Nome */}
+            <div className="md:col-span-2 col-span-4">
+              <Label htmlFor="name" text="Nome" required />
+              <Input type="text" id="name" {...form.register("name")} />
+              <ErrorForm error={form.formState.errors.name} />
+            </div>
 
-          {/* Preço */}
-          <div>
-            <Label htmlFor="price" text="Preço" required />
-            <Input
-              type="number"
-              id="price"
-              {...form.register("price", {
-                valueAsNumber: true,
-              })}
-            />
-            <ErrorForm error={form.formState.errors.price} />
+            {/* Preço */}
+            <div className="md:col-span-1 col-span-4">
+              <Label htmlFor="price" text="Preço" required />
+              <Input
+                type="number"
+                id="price"
+                {...form.register("price", {
+                  valueAsNumber: true,
+                })}
+              />
+              <ErrorForm error={form.formState.errors.price} />
+            </div>
           </div>
           <ButtonSubmit title={isEdit ? "Atualizar" : "Cadastrar"} />
         </Form>
@@ -202,7 +206,7 @@ export function ProductForm() {
           <div className="flex justify-center">
             <button
               disabled={form.formState.isSubmitting}
-              className="bg-blue-500 text-white px-4 py-2 rounded w-1/2"
+              className="text-white px-4 py-2 rounded w-1/2"
               onClick={handleProduct}
             >
               {isEdit ? "Editar" : "Criar"}
