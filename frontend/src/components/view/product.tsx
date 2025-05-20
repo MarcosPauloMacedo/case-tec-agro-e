@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { LoadingCircle } from "../utils/loading/circle";
 import { BoxDialogs } from "../utils/box-dialogs";
 import { delay } from "../../services/delay";
+import { AlertInfo } from "../utils/alerts/info";
 
 export function ProductView() {
   const navigate = useNavigate();
@@ -38,8 +39,9 @@ export function ProductView() {
   }, [id]);
 
   return (
-    <div className="p-4">
+    <div className="pb-8">
       <TitlePage title="Visualizar Produto" />
+      <AlertInfo message="Esta página é apenas para visualização. Para editar ou excluir o produto, acesse a página de edição." />
       <ButtonBack />
       {statusComponent === "loading" && (
         <div className="flex justify-center items-center">
@@ -56,7 +58,7 @@ export function ProductView() {
         />
       )}
       {statusComponent === "success" && (
-        <div className="mt-6 bg-white shadow rounded-lg p-6">
+        <div className="mt-6 bg-gray-50 shadow rounded-lg p-6">
           <h2 className="text-md font-bold text-gray-800 mb-4">
             Detalhes do Produto
           </h2>

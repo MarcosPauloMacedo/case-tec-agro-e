@@ -7,7 +7,7 @@ export function Form({ ...rest }: IFormProps) {
     <form
       {...rest}
       className={cn(
-        "space-y-4 border border-gray-200 p-6 rounded-lg bg-white mt-6",
+        "space-y-4 border border-gray-200 p-6 rounded-lg bg-gray-50 mt-6",
         rest.className
       )}
     />

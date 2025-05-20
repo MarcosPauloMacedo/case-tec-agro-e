@@ -7,7 +7,7 @@ export function Input({ ...rest }: IInputProps) {
   return (
     <input
       {...rest}
-      className={cn('mt-1 p-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black', rest.className)}
+      className={cn('mt-1 p-1 block w-full border-gray-300 bg-white rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black', rest.className)}
     />
   );
 }
